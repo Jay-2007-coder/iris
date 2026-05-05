@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import SearchBar from './components/SearchBar';
 import CurrentWeather from './components/CurrentWeather';
 import Forecast from './components/Forecast';
+import IrisAuth from './components/IrisAuth';
 import { fetchWeatherData } from './services/weatherApi';
 
 function App() {
+  // Authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authUser, setAuthUser] = useState(null);
+
   // Default to London
   const [city, setCity] = useState({ name: 'London', latitude: 51.5085, longitude: -0.1257 });
   const [weather, setWeather] = useState(null);
@@ -12,6 +17,8 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    if (!isAuthenticated) return;
+
     const loadWeather = async () => {
       setLoading(true);
       setError(null);
@@ -31,7 +38,7 @@ function App() {
     };
 
     loadWeather();
-  }, [city]);
+  }, [city, isAuthenticated]);
 
   const updateTheme = (code, isDay) => {
     // Remove old themes
@@ -51,8 +58,31 @@ function App() {
     }
   };
 
+  const handleAuthenticated = (username) => {
+    setAuthUser(username);
+    setIsAuthenticated(true);
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="app-container" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh'}}>
+        <IrisAuth onAuthenticated={handleAuthenticated} />
+      </div>
+    );
+  }
+
   return (
     <div className="app-container">
+      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px 20px', color: 'white' }}>
+        <span style={{ marginRight: '15px', alignSelf: 'center' }}>Welcome, <strong>{authUser}</strong>!</span>
+        <button 
+          onClick={() => { setIsAuthenticated(false); setAuthUser(null); document.body.className = ''; }}
+          style={{ background: 'rgba(255,255,255,0.2)', color: 'white', border: '1px solid white', borderRadius: '15px', padding: '5px 15px', cursor: 'pointer' }}
+        >
+          Logout
+        </button>
+      </div>
+
       <SearchBar onCitySelect={setCity} />
       
       {loading ? (

@@ -1,0 +1,222 @@
+/* ========================================================
+   IrisAuth.css — Styles for the Iris Authentication UI
+   ======================================================== */
+
+/* Full-page centering wrapper */
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+/* Card */
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  border-radius: 20px;
+  padding: 2rem 2rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  animation: fadeSlideIn 0.5s ease;
+}
+
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Header */
+.auth-header { text-align: center; }
+.iris-icon { font-size: 2.5rem; }
+.auth-title {
+  margin: 0.3rem 0 0.1rem;
+  font-size: 1.8rem;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.auth-subtitle { margin: 0; font-size: 0.9rem; opacity: 0.6; color: #fff; }
+
+/* Tabs */
+.auth-tabs {
+  display: flex;
+  background: rgba(0,0,0,0.2);
+  border-radius: 30px;
+  padding: 4px;
+  gap: 4px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 8px 4px;
+  border: none;
+  border-radius: 26px;
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+.tab-btn.active {
+  background: rgba(255,255,255,0.18);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.tab-btn:hover:not(.active) { color: #fff; }
+
+/* Webcam */
+.webcam-wrapper {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  line-height: 0;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.webcam-feed { width: 100%; height: auto; display: block; }
+
+/* Corner decorations */
+.corner {
+  position: absolute;
+  width: 18px; height: 18px;
+  border-color: #4ade80;
+  border-style: solid;
+  border-width: 0;
+}
+.corner.tl { top: 8px; left: 8px;  border-top-width: 3px; border-left-width: 3px;  border-radius: 4px 0 0 0; }
+.corner.tr { top: 8px; right: 8px; border-top-width: 3px; border-right-width: 3px; border-radius: 0 4px 0 0; }
+.corner.bl { bottom: 8px; left: 8px;  border-bottom-width: 3px; border-left-width: 3px;  border-radius: 0 0 0 4px; }
+.corner.br { bottom: 8px; right: 8px; border-bottom-width: 3px; border-right-width: 3px; border-radius: 0 0 4px 0; }
+
+/* Scan line */
+.scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4ade80, transparent);
+  top: 0;
+  box-shadow: 0 0 8px #4ade80;
+  opacity: 0;
+}
+.scan-line.scanning {
+  opacity: 1;
+  animation: scanDown 1.2s linear infinite;
+}
+@keyframes scanDown {
+  from { top: 0; }
+  to   { top: 100%; }
+}
+
+/* Countdown overlay */
+.countdown-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  font-weight: 900;
+  color: #4ade80;
+  text-shadow: 0 0 30px rgba(74,222,128,0.8);
+  background: rgba(0,0,0,0.35);
+  animation: pulse 1s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.8; transform: scale(0.92); }
+}
+
+/* Status */
+.auth-status {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0;
+}
+.auth-status.success { background: rgba(74,222,128,0.15); color: #4ade80; }
+.auth-status.error   { background: rgba(239,68,68,0.15);  color: #f87171; }
+.auth-status.info    { background: rgba(96,165,250,0.15); color: #93c5fd; }
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.auth-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+  outline: none;
+  transition: border 0.2s;
+}
+.auth-input:focus { border-color: #4ade80; }
+.auth-input::placeholder { color: rgba(255,255,255,0.4); }
+.auth-hint { margin: 2px 0 0; font-size: 0.78rem; color: rgba(255,255,255,0.45); text-align: center; }
+
+/* Buttons */
+.btn {
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  width: 100%;
+}
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary { background: rgba(96,165,250,0.25); color: #93c5fd; border: 1px solid rgba(96,165,250,0.4); }
+.btn-primary:hover:not(:disabled) { background: rgba(96,165,250,0.4); }
+.btn-success { background: rgba(74,222,128,0.2); color: #4ade80; border: 1px solid rgba(74,222,128,0.4); }
+.btn-success:hover:not(:disabled) { background: rgba(74,222,128,0.35); }
+.btn-danger  { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+.btn-danger:hover { background: rgba(239,68,68,0.3); }
+.btn-sm { padding: 5px 12px; font-size: 0.8rem; width: auto; }
+
+/* Manage Panel */
+.manage-panel { display: flex; flex-direction: column; gap: 0.6rem; }
+.manage-heading { color: #fff; margin: 0 0 0.5rem; font-size: 1rem; opacity: 0.85; }
+.manage-empty { color: rgba(255,255,255,0.4); font-size: 0.85rem; margin: 0; }
+
+/* User list */
+.user-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+/* Log table */
+.log-table-wrapper { max-height: 200px; overflow-y: auto; border-radius: 8px; }
+.log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.8);
+}
+.log-table th {
+  text-align: left;
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.55);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+.log-table td { padding: 7px 10px; border-top: 1px solid rgba(255,255,255,0.06); }
+.status-ok   { color: #4ade80; font-weight: 600; }
+.status-fail { color: #f87171; font-weight: 600; }
